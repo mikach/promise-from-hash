@@ -7,7 +7,7 @@ var isArray = function(arr) {
 };
 
 var isObject = function(obj) {
-    return typeof obj === 'object' && obj !== null;
+    return obj === Object(obj);
 };
 
 var isSimple = function(obj) {
