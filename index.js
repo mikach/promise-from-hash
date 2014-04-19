@@ -7,7 +7,7 @@ var isArray = function(arr) {
 };
 
 var isObject = function(obj) {
-    return obj === Object(obj);
+    return typeof obj === 'object' && obj !== null;
 };
 
 var isSimple = function(obj) {
@@ -16,6 +16,18 @@ var isSimple = function(obj) {
 
 var isPromise = function(obj) {
     return obj && typeof obj.then === 'function';
+};
+
+var clone = function(obj) {
+    var newObj = isArray(obj) ? [] : {};
+    for (var i in obj) {
+        if (isSimple(obj[i])) {
+            newObj[i] =  obj[i];
+        } else {
+            newObj[i] = isPromise(obj[i]) ? obj[i] : clone(obj[i]);
+        }
+    }
+    return newObj;
 };
 
 var makePromise = function(node, key) {
@@ -32,8 +44,6 @@ var makePromise = function(node, key) {
 };
 
 var fromHash = function(hash) { 
-    if (isSimple(hash)) throw new Error(hash + ' is not an object');
-
     var promises = Object.keys(hash).map(function(key) {
         if (isPromise(hash[key])) return makePromise(hash, key);
         if (!isSimple(hash[key])) return fromHash(hash[key]);
@@ -47,4 +57,8 @@ var fromHash = function(hash) {
     });
 };
 
-module.exports = fromHash;
+module.exports = function(hash) {
+    if (isSimple(hash)) throw new Error(hash + ' is not an object');
+
+    return fromHash( clone(hash) );
+};
