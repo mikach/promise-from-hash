@@ -61,6 +61,10 @@ describe('promise-from-hash', function() {
     });
 
     it('should not modify given object', function() {
-        // todo
+        fromHash(tree).then(function(res) {
+            expect(tree).to.not.eql(res);
+            expect(tree.b.then).to.be.a('function'); // still a promise
+            done();
+        });
     });
 });
