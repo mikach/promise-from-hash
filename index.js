@@ -30,14 +30,14 @@ var clone = function(obj) {
     return newObj;
 };
 
-var makePromise = function(node, key) {
+var attachPromise = function(node, key, promise) {
     return new Promise(function(resolve) {
-        node[key].then(function(result) {
+        promise.then(function(result) {
             node[key] = result;
             if (isSimple(result)) {
                 resolve(result);
             } else {
-                fromHash(result).then(resolve);
+                return fromHash(result).then(resolve);
             }
         });
     });
@@ -45,7 +45,7 @@ var makePromise = function(node, key) {
 
 var fromHash = function(hash) { 
     var promises = Object.keys(hash).map(function(key) {
-        if (isPromise(hash[key])) return makePromise(hash, key);
+        if (isPromise(hash[key])) return attachPromise(hash, key, hash[key]);
         if (!isSimple(hash[key])) return fromHash(hash[key]);
         return hash[key];
     });
