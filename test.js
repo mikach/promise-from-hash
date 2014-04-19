@@ -59,4 +59,8 @@ describe('promise-from-hash', function() {
             done();
         });
     });
+
+    it('should not modify given object', function() {
+        // todo
+    });
 });
