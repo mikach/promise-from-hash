@@ -1,6 +1,6 @@
 {
   "name": "promise-from-hash",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Promise.all for hash",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,11 @@
     "es6",
     "hash"
   ],
-  "author": "",
+  "author": {
+    "name": "Michael",
+    "email": "mikach27@gmail.com",
+    "url": "https://github.com/mikach"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mikach/promise-from-hash/issues"
