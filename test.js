@@ -67,4 +67,18 @@ describe('promise-from-hash', function() {
             done();
         });
     });
+
+    it('should work for empty arrays', function(done) {
+        fromHash([]).then(function(res) {
+            expect(res).to.eql([]);
+            done();
+        });
+    });
+
+    it('should work for empty objects', function(done) {
+        fromHash({}).then(function(res) {
+            expect(res).to.eql({});
+            done();
+        });
+    });
 });
