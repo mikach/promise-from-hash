@@ -1,4 +1,5 @@
-## Promise.all for hash
+## Promise.all for hash [![Build Status](https://travis-ci.org/mikach/promise-from-hash.png?branch=master)](https://travis-ci.org/mikach/promise-from-hash)
+
 
 ### Quick example
 
